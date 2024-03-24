@@ -5,6 +5,8 @@ import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import bibleJourneyLogo from '@/images/logos/bible_journey_logo.jpg'
 import pandaflagLogo from '@/images/logos/pandaflag_logo.png'
+import reactLogo from '@/images/logos/react_logo.png'
+import shoeLogo from '@/images/logos/shoe_logo.jpg'
 
 const projects = [
   {
@@ -33,6 +35,36 @@ const projects = [
     },
     logo: bibleJourneyLogo,
   },
+  {
+    name: 'Shoe size guide',
+    description:
+      'Never confuse shoe sizes again depending on country of origin',
+    link: {
+      href: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      label: 'shoe-size-guide.vercel.app',
+    },
+    logo: shoeLogo,
+  },
+  {
+    name: 'Personality Predictor',
+    description:
+      'Get a personality prediction using undiscovered secret technology',
+    link: {
+      href: 'https://personality-predictor.vercel.app/',
+      label: 'personality-predictor.vercel.app',
+    },
+    logo: reactLogo,
+  },
+  {
+    name: 'Dermatologist Website',
+    description:
+      'Presentational website Dermato-venerology - Georgiana Rotaru',
+    link: {
+      href: 'https://www.devetimi.com/',
+      label: 'devetimi.com',
+    },
+    logo: reactLogo,
+  },
 ]
 
 function LinkIcon(props) {
@@ -52,10 +84,7 @@ export default function Projects() {
       <Head>
         <title>Projects | Julian C</title>
 
-        <meta
-          name="description"
-          content="Side projects with potential."
-        />
+        <meta name="description" content="Side projects with potential." />
       </Head>
 
       <SimpleLayout
@@ -72,7 +101,7 @@ export default function Projects() {
                 <Image
                   src={project.logo}
                   alt=""
-                  className="h-full w-full rounded-full"
+                  className="h-full w-full rounded-full object-cover"
                   unoptimized
                 />
               </div>
