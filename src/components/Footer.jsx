@@ -46,8 +46,8 @@ export function Footer() {
                 <NavLink href="/projects">Projects</NavLink>
               </div>
 
-              <div className="space-y-3">
-                <div className="flex justify-end gap-4">
+              <div className="space-y-6 sm:space-y-3">
+                <div className="flex justify-center gap-4 sm:justify-end">
                   <SocialLink
                     href="https://twitter.com/IulianCrisan"
                     aria-label="Follow on Twitter"
