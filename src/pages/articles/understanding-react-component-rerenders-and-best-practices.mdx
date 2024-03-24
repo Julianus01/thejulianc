@@ -1,0 +1,95 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Julian C',
+  date: '2024-03-20',
+  title: 'Understanding React Component Rerenders and Best Practices',
+  description:
+    `React's efficient rendering mechanism is one of its core strengths, but understanding when and why components rerender is essential for optimizing performance`,
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+React's efficient rendering mechanism is one of its core strengths, but understanding when and why components rerender is essential for optimizing performance. Let's dive into the factors that trigger rerenders and discuss best practices to ensure your React applications run smoothly.
+
+What Triggers a Rerender?
+-------------------------
+
+### State Changes
+
+When the state of a component changes using `setState`, React automatically triggers a rerender of that component and its children. For example:
+
+```js
+import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
+
+### Props Changes
+
+When a component's props change, React rerenders it with the new props. For example:
+
+```js
+import React from 'react';
+
+function Greeting({ name }) {
+  return <h1>Hello, {name}!</h1>;
+}
+
+// Parent component
+function App() {
+  return <Greeting name="John" />;
+}
+```
+
+If `name` changes in the parent component, `Greeting` will rerender with the updated prop value.
+
+### Context Changes
+
+If a component consumes context using `useContext` or `Context.Consumer`, it will rerender whenever the context value changes.
+
+### Parent Rerenders
+
+If a parent component rerenders, all its children rerender as well, regardless of whether their props have changed. This can be optimized using `React.memo`.
+
+Best Practices
+--------------
+
+### Memoize Expensive Computations
+
+Memoize calculations using `useMemo` or `React.memo` to prevent unnecessary recalculations on each render.
+
+### Minimize Stateful Logic
+
+Keep stateful logic to a minimum and use libraries like `Redux` or `Zustand` for managing complex state. This separates concerns and makes it easier to reason about your application's behavior.
+
+### Avoid Inline Functions in Render
+
+Avoid defining new functions inside render methods, as they create new references on each render, leading to unnecessary rerenders. Instead, define functions outside the component or use `useCallback` to memoize them.
+
+### Use Keys Properly
+
+When rendering lists, ensure each item has a unique `key` prop. This helps React identify which items have changed, reducing the likelihood of unnecessary rerenders.
+
+### Optimize Context Usage
+
+Avoid putting large or frequently changing values in context, as this can cause unnecessary rerenders. Instead, use context for global settings or state that affects multiple components.
+
+### Profile and Benchmark
+
+Regularly profile and benchmark your application using tools like React DevTools or Chrome DevTools. This helps identify performance bottlenecks and areas for optimization.
+
+### Know When to Optimize
+
+Don't prematurely optimize your application. Focus on building features first, then optimize based on actual performance data and user feedback.
+
+By understanding what triggers React component rerenders and following these best practices, you can build high-performance React applications that provide a smooth user experience. Remember to profile and benchmark your application regularly to identify areas for improvement and ensure optimal performance.

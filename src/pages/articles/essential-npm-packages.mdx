@@ -1,0 +1,137 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Julian C',
+  date: '2024-03-20',
+  title: 'Essential npm Packages',
+  description:
+    `In the ever-evolving landscape of React development, leveraging the right npm packages can significantly enhance productivity`,
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+Leveraging the right npm packages can significantly enhance productivity, code quality, and user experience. The following would be my four essential npm packages -- `react-query`, `react-use`, `tailwind`, and `yup`. Let's see why those would make this list and what are the benefits of incorporating them into our codebase.
+
+## React Query
+
+`react-query` is a powerful library for managing server state and caching. It simplifies data fetching, caching, and synchronization with the server, offering a declarative and efficient approach to handling asynchronous data.
+
+### Code Example:
+
+```js
+import { useQuery } from 'react-query';
+import axios from 'axios';
+
+const fetchUsers = async () => {
+  const { data } = await axios.get('/api/users');
+  return data;
+};
+
+function UserList() {
+  const { data, isLoading, isError } = useQuery('users', fetchUsers);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error fetching data</div>;
+
+  return (
+    <ul>
+      {data.map(user => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### Benefits:
+
+-   Simplifies data fetching and caching.
+-   Provides a consistent and declarative API for managing server state.
+-   Optimizes performance by automatically handling caching and re-fetching.
+-   Though powerful out of the box, its real potential shines through when we leverage the cache as much as possible
+
+## React Use
+
+`react-use` is a collection of essential React hooks covering a wide range of use cases, from handling state and lifecycle events to accessing browser APIs and utilities. For example below we easily access the browser window dimensions.
+
+### Code Example:
+
+```js
+import { useState, useEffect } from 'react';
+import { useWindowSize } from 'react-use';
+
+function MyComponent() {
+  const { width, height } = useWindowSize();
+
+  return (
+    <div>
+      <p>Window width: {width}</p>
+      <p>Window height: {height}</p>
+    </div>
+  );
+}
+```
+
+### Benefits:
+
+-   Provides a comprehensive collection of React hooks for common tasks.
+-   Simplifies state management, lifecycle handling, and integration with browser APIs.
+-   Promotes code reuse and maintainability by encapsulating common functionality in hooks.
+-   Favorites like `useDebounce`, `useKey`, `useClickAway`, `useMountedState`, `useEffectOnce`
+
+## Tailwind
+
+`tailwind` is a utility-first CSS framework that enables rapid UI development by providing a set of pre-defined utility classes for styling HTML elements.
+
+### Code Example:
+
+```js
+import React from 'react';
+import './styles.css';
+
+function MyComponent() {
+  return (
+    <div className="bg-blue-500 text-white p-4">
+      <h1 className="text-2xl font-bold">Hello, Tailwind!</h1>
+      <button className="bg-green-500 text-white px-4 py-2 mt-4 rounded hover:bg-green-600">Click me</button>
+    </div>
+  );
+}
+```
+
+### Benefits:
+
+-   Streamlines UI development with a consistent set of utility classes.
+-   Promotes a responsive and mobile-first design approach.
+-   Facilitates rapid prototyping and iteration by eliminating the need for writing custom CSS.
+
+## Yup
+
+`yup` is a schema validation library for JavaScript and TypeScript, offering a simple and declarative API for defining and validating data schemas.
+
+### Code Example:
+
+```js
+import * as yup from 'yup';
+
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  age: yup.number().positive().integer().required(),
+  email: yup.string().email().required(),
+});
+
+schema.validate({ name: 'John', age: 30, email: 'john@example.com' })
+  .then(valid => console.log(valid))
+  .catch(error => console.error(error));
+```
+
+### Benefits:
+
+-   Simplifies data validation and schema definition.
+-   Provides a fluent and expressive API for defining validation rules.
+-   Enables consistent and reliable data validation across your React application.
+
+Having Essentials you can trust is imperative
+-------------
+
+Incorporating these npm packages -- `react-query`, `react-use`, `tailwind`, and `yup` -- can enhance productivity, code quality, and user experience. Whether you're managing server state, handling asynchronous data, styling UI components, or validating user input, these packages offer powerful tools and utilities to streamline the development workflow.

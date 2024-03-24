@@ -1,0 +1,97 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Julian C',
+  date: '2024-03-20',
+  title: 'So about that Lodash FP',
+  description:
+    `Functional programming is a paradigm that emphasizes the use of pure functions, immutability, and function composition. Lodash FP extends these principles to provide a robust toolkit for React developers`,
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+React is characterized by its focus on simplicity, reusability, and performance. When it comes to managing data and handling transformations, we often turn to libraries like Lodash to streamline our code. However, Lodash FP (Functional Programming) offers a more powerful and expressive approach, particularly suited for React development. Let's explore why Lodash FP is a superior choice for React and attempt to illustrate its benefits.
+
+Leveraging Functional Programming
+---------------------------------
+
+Functional programming is a paradigm that emphasizes the use of **pure functions**, **immutability**, and **function composition**. Lodash FP extends these principles to provide a robust toolkit for React developers. By leveraging functional programming concepts, developers can write cleaner, more concise, and more maintainable code.
+
+Benefits of Lodash FP
+------------------------------
+
+### 1\. Pure Functions
+
+Pure functions have no side effects and produce the same output for the same input, making them predictable and easier to reason about. **Pure functions** play a crucial role in managing state and handling data transformations. Let's compare a traditional Lodash function with its Lodash FP counterpart:
+
+```js
+// Traditional Lodash
+import _ from 'lodash';
+
+const users = [{ name: 'John', age: 30 }, { name: 'Jane', age: 25 }];
+
+const filteredUsers = _.filter(users, user => user.age > 25);
+
+// Lodash FP
+import _ from 'lodash/fp';
+
+const filteredUsersFP = _.filter(user => user.age > 25)(users);
+```
+
+In the above example, the Lodash FP version uses currying, allowing us to pass the data (`users`) as the last argument, resulting in a more composable and functional style.
+
+### 2\. Immutability
+
+Immutability is a key concept in React development, as it ensures that data remains unchanged once created. Lodash FP encourages immutability by providing functions that do not mutate the original data. Let's illustrate this with an example:
+
+```js
+// Traditional Lodash
+import _ from "lodash"
+
+const originalObject = { title: 'My Title' }
+const modifiedObject = _.set(originalObject, 'title', 'New Title')
+
+// Result
+// originalObject = { title: 'New Title' }
+// modifiedObject = { title: 'New Title' }
+
+// Lodash FP
+import _ from 'lodash/fp';
+
+const originalObject = { title: 'My Title' }
+const modifiedObjectFP = _.set('title', 'New Title')(originalObject)
+
+// Result
+// originalObject = { title: 'My Title' }
+// modifiedObject = { title: 'New Title' }
+```
+
+Both versions achieve the same result, but the Lodash FP version emphasizes immutability by returning a new object instead of modifying the original one.
+
+### 3\. Function Composition
+
+Function composition allows developers to combine multiple functions to create new functions. Lodash FP provides powerful tools for function composition, enabling developers to create reusable and composable code. Let's see an example:
+
+```js
+// Traditional Lodash
+import _ from 'lodash';
+
+const users = [{ name: 'John', age: 30 }, { name: 'Jane', age: 25 }];
+
+const filteredAndMappedUsers = _.map(_.filter(users, user => user.age > 25), user => user.name);
+
+// Lodash FP
+import _ from 'lodash/fp';
+
+const filteredAndMappedUsersFP = _.flow(
+  _.filter(user => user.age > 25),
+  _.map(user => user.name)
+)(users);
+```
+
+In the Lodash FP version, `_.flow` is used to compose the `_.filter` and `_.map` functions, resulting in a more elegant and readable code.
+
+So about that Lodash FP
+----------
+
+Lodash FP offers a powerful and expressive toolkit, leveraging functional programming concepts to enhance code clarity, maintainability, and performance. By embracing pure functions, immutability, and function composition, we can write cleaner, more concise, and more maintainable code in our applications. Whether you're filtering data, transforming arrays, or composing functions, Lodash FP provides the tools and capabilities needed to elevate out development workflow to new heights.
