@@ -1,0 +1,62 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Julian C',
+  date: '2024-03-25',
+  title: 'useContext is awesome but it sucks',
+  description: `test`,
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+Context API stands as a founding father, offering a centralized place for sharing state across components. However, as our applications grow in complexity, the limitations of Context API become increasingly evident. Context struggles with complex stores, particularly due to the absence of built-in selectors and its **potential for excessive re-renders**.
+
+The Missing Selectors
+---------------------
+
+Selectors act as a bridge between components and the global state, enabling efficient data retrieval without unnecessary re-renders. By selecting only the required data, components can avoid rendering when unrelated parts of the state change, thus optimizing performance. With Context you always get the whole cake, regardless if only one piece would have been enough. A bad example would be to keep form state in Context, having all listeners **re-render on every key stroke**.
+
+```js
+const MyContext = React.createContext();
+
+const MyComponent = () => {
+  // Retrieve the whole context value with no ability of
+  // only choosing what is relevant for this component
+  const contextValue = useContext(MyContext);
+
+  // Render logic ...
+};
+```
+
+Excessive Re-Renders
+--------------------
+
+Picture a domino chain reaction, each piece falling on the next in a cascading effect. Similarly, changes to the shared Context state trigger re-renders across all components consuming it, regardless of whether the data is relevant to them. With complex stores containing numerous nested objects or arrays, this can result in a surge of unnecessary re-renders, hurting performance and user experience.
+
+Seeking Solutions
+-----------------
+
+So, how do we navigate this labyrinth of Context woes? Fear not, for solutions abound! Incorporating third-party libraries such as [Zustand](https://github.com/pmndrs/zustand) or [Redux](https://github.com/reduxjs/react-redux) provides built-in selector functionality, allowing components to cherry-pick the data they require. Additionally, implementing memoization techniques or breaking down complex stores into smaller, more manageable pieces can mitigate the risk of excessive re-renders.
+
+```js
+// Example with Redux selector
+import { useSelector } from 'react-redux';
+
+const MyComponent = () => {
+  // Pick only the relevant data for this component
+  // and rerender only when this changes
+  const relevantData = useSelector(state => state.relevantData);
+
+  // Render logic ...
+};
+```
+
+Why it is awesome
+----------
+
+React Context shines wonders in bite sized stores with its simplicity, straight forward api and the fact that it is built in and practically known by everybody at this point. Some good examples that make Context the best tool for the job are the ones that change rarely and do not store a lot of information, like **user data**, **auth information**, **theme**, **certain general settings**, and so on.
+
+Why it sucks
+----------
+
+Context struggles to keep pace with the requirements of complex stores. Without built-in selectors and the potential for excessive re-renders, it falls short of meeting the demands of verbose state management. For those problems, we need much better equipped global state management stores like [Zustand](https://github.com/pmndrs/zustand) or [Redux](https://github.com/reduxjs/react-redux) ( if you don't hate it by now ).
